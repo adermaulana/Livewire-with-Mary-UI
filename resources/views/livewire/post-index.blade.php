@@ -22,10 +22,10 @@
      </x-slot:middle>
      <x-slot:actions>
          <x-mary-button icon="o-funnel" />
-         <x-mary-button icon="o-plus" class="btn-secondary text-amber-50" @click="$wire.postModal = true"/>
+         <x-mary-button icon="o-plus" class="btn-secondary text-amber-50" @click="$wire.showModal()"/>
      </x-slot:actions>
  </x-mary-header>
- <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="alert($event.detail.title)" with-pagination>
+ <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="$wire.edit($event.detail.id)" with-pagination>
     @scope('header_id', $header)
         <h2 class="text-xl font-bold text-amber-700">
             {{ $header['label'] }}
@@ -45,6 +45,10 @@
         <h2 class="text-xl font-bold text-amber-700">
             {{ $header['label'] }}
         </h2>
+    @endscope
+    
+    @scope('actions', $posts)
+        <x-mary-button icon="o-trash" wire:click="delete({{ $posts->id }})" wire:confirm="Are you sure you want to delete this post?" spinner class="btn-sm btn-error" />
     @endscope
 </x-mary-table>
 

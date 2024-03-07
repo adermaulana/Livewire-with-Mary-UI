@@ -8,6 +8,8 @@ use App\Models\Post;
 
 class PostForm extends Form
 {
+
+    public ?Post $post;
     //
     #[Validate('required')] 
     public $title = '';
@@ -26,4 +28,20 @@ class PostForm extends Form
         );
   
     }
+
+    public function setPost(Post $post){
+        $this->post = $post;
+        $this->title = $post->title;
+        $this->slug = $post->slug;
+        $this->body = $post->body;
+    }
+
+    public function update(){
+        $this->validate();
+        $this->post->update(
+            $this->only(['title', 'slug','body'])
+        );
+        $this->reset();
+    }
+
 }
