@@ -25,6 +25,8 @@
          <x-mary-button icon="o-plus" class="btn-secondary text-amber-50" @click="$wire.showModal()"/>
      </x-slot:actions>
  </x-mary-header>
+
+ <!-- Table -->
  <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="$wire.edit($event.detail.id)" with-pagination>
     @scope('header_id', $header)
         <h2 class="text-xl font-bold text-amber-700">
@@ -52,8 +54,8 @@
     @endscope
 </x-mary-table>
 
-<!-- Modal -->
 
+<!-- Modal -->
 <x-mary-modal wire:model="postModal" class="backdrop-blur">
     <x-mary-form wire:submit="save">
         <x-mary-input label="Title" wire:model="form.title" />
