@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://mary-ui.com/favicon.ico" type="image/x-icon">
     <title>Mary UI Template</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -56,7 +57,7 @@
             {{-- Activates the menu item when a route matches the `link` property --}}
             <x-mary-menu activate-by-route>
                 <x-mary-menu-item title="Dashboard" icon="o-home" link="dashboard" />
-                <x-mary-menu-item title="Posts" icon="o-envelope" link="posts" />
+                <x-mary-menu-item title="Posts" icon="o-document-plus" link="posts" />
             </x-mary-menu>
         </x-slot:sidebar>
  

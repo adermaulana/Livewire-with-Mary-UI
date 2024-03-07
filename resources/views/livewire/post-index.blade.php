@@ -2,7 +2,7 @@
 
     use App\Models\Post;
 
-    $posts = Post::latest()->get();
+    $posts = Post::latest()->paginate(3);
 
     $headers = [
         ['key' => 'id', 'label' => 'No'],
@@ -25,7 +25,7 @@
          <x-mary-button icon="o-plus" class="btn-secondary text-amber-50" @click="$wire.postModal = true"/>
      </x-slot:actions>
  </x-mary-header>
- <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="alert($event.detail.title)">
+ <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="alert($event.detail.title)" with-pagination>
     @scope('header_id', $header)
         <h2 class="text-xl font-bold text-amber-700">
             {{ $header['label'] }}
@@ -52,11 +52,11 @@
 
 <x-mary-modal wire:model="postModal" class="backdrop-blur">
     <x-mary-form wire:submit="save">
-        <x-mary-input label="Title" wire:model="title" />
-        <x-mary-input label="Slug" wire:model="slug" />
+        <x-mary-input label="Title" wire:model="form.title" />
+        <x-mary-input label="Slug" wire:model="form.slug" />
         <x-mary-textarea
             label="Body"
-            wire:model="body"
+            wire:model="form.body"
             placeholder="Your story ..."
             hint="Max 1000 chars"
             rows="5"

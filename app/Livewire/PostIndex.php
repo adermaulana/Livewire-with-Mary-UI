@@ -2,34 +2,27 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\PostForm;
 use Livewire\Component;
-use App\Models\Post;
 use Livewire\Attributes\Validate; 
+use Livewire\WithPagination;
 
 class PostIndex extends Component
 {
+    use WithPagination;
+    
+    public PostForm $form;
 
     public bool $postModal = false;
 
-    #[Validate('required')] 
-    public $title = '';
-
-    #[Validate('required')] 
-    public $slug = '';
-
-    #[Validate('required')] 
-    public $body = '';
  
     public function save()
-    {
+    {  
+        $this->form->store();
+        $this->postModal = false;
 
-        $this->validate(); 
-        Post::create(
-            $this->only(['title', 'slug','body'])
-        );
- 
-        return $this->redirect('/posts')
-            ->with('status', 'Post successfully created.');    }
+        return $this->redirect('/posts');
+    }
 
     public function render()
     {
