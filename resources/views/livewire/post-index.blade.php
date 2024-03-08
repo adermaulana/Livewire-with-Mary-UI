@@ -2,7 +2,7 @@
 
     use App\Models\Post;
 
-    $posts = Post::latest()->paginate(3);
+    $search = Post::search($this->search)->paginate($this->page);
 
     $headers = [
         ['key' => 'id', 'label' => 'No'],
@@ -11,14 +11,13 @@
         ['key' => 'body', 'label' => 'Body']
     ];
     
-
 ?>
 
 <div>
 
  <x-mary-header title="Users" subtitle="Check this on mobile">
      <x-slot:middle class="!justify-end">
-         <x-mary-input icon="o-magnifying-glass" placeholder="Search..." />
+         <x-mary-input icon="o-magnifying-glass" wire:model.live="search" placeholder="Search..." />
      </x-slot:middle>
      <x-slot:actions>
          <x-mary-button icon="o-funnel" />
@@ -27,7 +26,7 @@
  </x-mary-header>
 
  <!-- Table -->
- <x-mary-table :headers="$headers" :rows="$posts" :row-decoration striped @row-click="$wire.edit($event.detail.id)" with-pagination>
+ <x-mary-table :headers="$headers" :rows="$search" :row-decoration striped @row-click="$wire.edit($event.detail.id)" with-pagination>
     @scope('header_id', $header)
         <h2 class="text-xl font-bold text-amber-700">
             {{ $header['label'] }}

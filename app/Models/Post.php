@@ -14,4 +14,8 @@ class Post extends Model
         'slug',
         'body',
     ];
+
+    public function scopeSearch($query,$value){
+        $query->where('title','like',"%$value%")->orWhere('body','like',"%$value%");
+    }
 }

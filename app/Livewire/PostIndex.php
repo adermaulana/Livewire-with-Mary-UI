@@ -14,6 +14,10 @@ class PostIndex extends Component
     
     public PostForm $form;
 
+    public $search = '';
+
+    public $page = 5;
+
     public bool $postModal = false;
     public bool $editMode = false;
  
