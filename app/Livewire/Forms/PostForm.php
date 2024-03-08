@@ -20,11 +20,14 @@ class PostForm extends Form
     #[Validate('required')] 
     public $body = '';
 
+    #[Validate('required|numeric')] 
+    public $watch = '';
+
     public function store(){
         
         $this->validate(); 
         Post::create(
-            $this->only(['title', 'slug','body'])
+            $this->only(['title', 'slug','body','watch'])
         );
   
     }
@@ -34,12 +37,13 @@ class PostForm extends Form
         $this->title = $post->title;
         $this->slug = $post->slug;
         $this->body = $post->body;
+        $this->watch = $post->watch;
     }
 
     public function update(){
         $this->validate();
         $this->post->update(
-            $this->only(['title', 'slug','body'])
+            $this->only(['title', 'slug','body','watch'])
         );
         $this->reset();
     }

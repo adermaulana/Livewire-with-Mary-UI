@@ -8,7 +8,8 @@
         ['key' => 'id', 'label' => 'No'],
         ['key' => 'title', 'label' => 'Title'],
         ['key' => 'slug', 'label' => 'Slug'],
-        ['key' => 'body', 'label' => 'Body']
+        ['key' => 'body', 'label' => 'Body'],
+        ['key' => 'watch', 'label' => 'Watch']
     ];
     
 ?>
@@ -47,18 +48,31 @@
             {{ $header['label'] }}
         </h2>
     @endscope
+    @scope('header_watch', $header)
+        <h2 class="text-xl font-bold text-amber-700">
+            {{ $header['label'] }}
+        </h2>
+    @endscope
     
     @scope('actions', $posts)
         <x-mary-button icon="o-trash" wire:click="delete({{ $posts->id }})" wire:confirm="Are you sure you want to delete this post?" spinner class="btn-sm btn-error" />
     @endscope
 </x-mary-table>
 
+<!-- Chart JS -->
+<div class="grid gap-5 mt-10">
+    <x-mary-button label="Randomize" wire:click="randomize" class="btn-primary" spinner />
+    <x-mary-button label="Switch" wire:click="switch" spinner />
+</div>
+ 
+<x-mary-chart wire:model="myChart" />
 
 <!-- Modal -->
 <x-mary-modal wire:model="postModal" class="backdrop-blur">
     <x-mary-form wire:submit="save">
         <x-mary-input label="Title" wire:model="form.title" />
         <x-mary-input label="Slug" wire:model="form.slug" />
+        <x-mary-input label="Watch By User" wire:model="form.watch" />
         <x-mary-textarea
             label="Body"
             wire:model="form.body"
@@ -72,5 +86,7 @@
         </x-slot:actions>
     </x-mary-form>
 </x-mary-modal>
+
+
 
 </div>

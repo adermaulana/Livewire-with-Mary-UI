@@ -13,6 +13,7 @@ class Post extends Model
         'title',
         'slug',
         'body',
+        'watch',
     ];
 
     public function scopeSearch($query,$value){
