@@ -73,13 +73,11 @@
         <x-mary-input label="Title" wire:model="form.title" />
         <x-mary-input label="Slug" wire:model="form.slug" />
         <x-mary-input label="Watch By User" wire:model="form.watch" />
-        <x-mary-textarea
-            label="Body"
-            wire:model="form.body"
-            placeholder="Your story ..."
-            hint="Max 1000 chars"
-            rows="5"
-             />
+
+        <template x-if="$wire.postModal">
+            <x-mary-markdown wire:model="form.body" label="Blog post" />
+        </template>
+
         <x-slot:actions>
             <x-mary-button label="Cancel" @click="$wire.postModal = false"/>
             <x-mary-button label="Submit" class="btn-primary" type="submit" spinner="save" />

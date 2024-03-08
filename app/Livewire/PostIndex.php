@@ -56,6 +56,7 @@ class PostIndex extends Component
  
     public function showModal(){
         $this->form->reset();
+        $this->editMode = false;
         $this->postModal = true;
     }
 
